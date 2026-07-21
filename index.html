@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta VIP Digital - Haerang Maya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { font-family: 'Quicksand', sans-serif; background-color: #fdf2f2; }
+        .font-display { font-family: 'Fredoka', cursive; }
+        .stamp-animation { animation: stampBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes stampBounce {
+            0% { transform: scale(3) rotate(-20deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between p-4 md:p-6">
+
+    <!-- Encabezado Principal con Logo -->
+    <header class="w-full max-w-md bg-white/90 backdrop-blur-md rounded-2xl p-3 shadow-sm border border-rose-100 flex justify-between items-center mb-4">
+        <div class="flex items-center gap-3">
+            <img src="IMG_20260721_142628.jpg" alt="Haerang Maya Logo" class="w-10 h-10 rounded-full object-cover border-2 border-rose-400 shadow-xs">
+            <div>
+                <h1 class="font-display text-rose-800 text-sm font-bold leading-tight">HAERANG MAYA</h1>
+                <p class="text-[10px] text-gray-500 font-medium">Club VIP Digital 🐻🇬🇹</p>
+            </div>
+        </div>
+        
+        <button id="toggleRoleBtn" onclick="toggleRole()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs px-3 py-1.5 rounded-xl font-bold transition">
+            ⚙️ Modo Admin
+        </button>
+    </header>
+
+    <!-- ================= VISTA CLIENTE ================= -->
+    <main id="clientView" class="w-full max-w-md flex flex-col items-center gap-4">
+
+        <div class="w-full bg-gradient-to-br from-amber-50 via-rose-50 to-orange-50 rounded-3xl p-5 shadow-xl border-2 border-rose-200 relative overflow-hidden">
+            
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <span class="bg-rose-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full font-display uppercase tracking-wider">
+                        Cliente VIP
+                    </span>
+                    <h2 id="clientNameDisplay" class="font-display text-lg font-bold text-gray-800 mt-1">
+                        ¡Hola, Fan del K-Food! 👋
+                    </h2>
+                </div>
+                <div class="text-right">
+                    <span id="stampsCount" class="text-2xl font-bold font-display text-rose-600">1</span>
+                    <span class="text-xs text-gray-500 font-bold">/ 9 sellos</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-amber-900 bg-amber-100/80 p-2 rounded-xl mb-4 text-center font-medium">
+                🎁 ¡Te regalamos el sello #1 de Bienvenida! Junta 7 compras más para ganar tu premio.
+            </p>
+
+            <div id="stampsGrid" class="grid grid-cols-3 gap-2.5 mb-4">
+                <!-- Se genera dinámicamente con JS (9 Casillas) -->
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-xs rounded-2xl p-3 border border-rose-100 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="text-2xl">🎁</div>
+                    <div>
+                        <h4 class="font-display text-xs font-bold text-gray-800">Premio VIP Final</h4>
+                        <p class="text-[10px] text-gray-600 font-medium">1 Ramen Buldak + 1 Bebida Coreana</p>
+                    </div>
+                </div>
+                <button id="claimBtn" onclick="claimReward()" disabled class="bg-gray-300 text-gray-500 font-bold text-xs px-3 py-2 rounded-xl cursor-not-allowed transition">
+                    Canjear
+                </button>
+            </div>
+        </div>
+
+        <div class="w-full bg-white rounded-2xl p-4 shadow-md border border-rose-100 text-center">
+            <h3 class="font-display font-bold text-gray-800 text-xs mb-1">¿Compraste en línea o presencial?</h3>
+            <p class="text-[11px] text-gray-500 mb-3">Ingresa el **Código de Sello** que recibiste en tu pedido para sumarlo a tu tarjeta:</p>
+            
+            <div class="flex gap-2">
+                <input type="text" id="stampCodeInput" placeholder="Ej: HM-8291" class="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-center uppercase font-bold tracking-widest focus:outline-none focus:border-rose-400">
+                <button onclick="redeemStampCode()" class="bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs px-4 py-2 rounded-xl transition">
+                    Validar
+                </button>
+            </div>
+            <p id="redeemMessage" class="text-[11px] font-bold mt-2 hidden"></p>
+        </div>
+
+        <div class="w-full bg-rose-50/60 rounded-2xl p-3 border border-rose-100 text-left text-[11px] text-rose-900 space-y-1">
+            <p class="font-bold font-display">📌 Reglas de tu Tarjeta VIP:</p>
+            <p>• El sello #1 es de Bienvenida Gratis 🎉</p>
+            <p>• Acumulas 1 sello por cada compra de Q35 o más (7 compras en total).</p>
+            <p>• Al completar tu 7.ª compra, ¡desbloqueas la casilla 9 del premio!</p>
+        </div>
+    </main>
+
+    <!-- ================= VISTA ADMINISTRACIÓN ================= -->
+    <main id="adminView" class="w-full max-w-md flex-col items-center gap-4 hidden">
+        
+        <div class="w-full bg-white rounded-3xl p-5 shadow-xl border-2 border-rose-300">
+            <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-2">
+                <h2 class="font-display text-base font-bold text-rose-800 flex items-center gap-2">
+                    🔑 Generador de Sellos Digitales
+                </h2>
+                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    Exclusivo Haerang Maya
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Monto de la Compra (Q):</label>
+                    <input type="number" id="purchaseAmount" placeholder="Ej: 35 o más" value="35" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-sm font-bold focus:outline-none focus:border-rose-500">
+                    <p class="text-[10px] text-gray-500 mt-1">Monto mínimo requerido: Q35.00 para otorgar 1 sello.</p>
+                </div>
+
+                <button onclick="generateStampCode()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                    ⚡ Generar Código de 1 Sello Digital
+                </button>
+            </div>
+
+            <div id="generatedCodeArea" class="mt-5 p-4 bg-amber-50 rounded-2xl border border-amber-200 text-center hidden">
+                <p class="text-xs text-amber-900 font-medium">Código de Sello Generado:</p>
+                <div id="generatedCodeDisplay" class="text-2xl font-black font-display text-rose-600 my-1 tracking-widest select-all">
+                    HM-XXXX
+                </div>
+                <p id="stampsEarnedInfo" class="text-[11px] text-amber-800 font-bold mb-3">✨ Válido por 1 Sello VIP</p>
+                
+                <div id="qrcode" class="flex justify-center p-2 bg-white rounded-xl shadow-xs border border-amber-100 my-2 mx-auto w-32 h-32 items-center"></div>
+
+                <p class="text-[10px] text-gray-500 italic mt-2">
+                    Envía el código o el QR al cliente por WhatsApp o inclúyelo en su pedido.
+                </p>
+            </div>
+        </div>
+
+        <div class="w-full bg-gray-100 rounded-2xl p-3 text-center border border-gray-200">
+            <button onclick="resetClientCard()" class="text-xs text-red-600 font-bold hover:underline">
+                🔄 Reiniciar Tarjeta de Prueba (Volver a 1 sello)
+            </button>
+        </div>
+    </main>
+
+    <footer class="mt-6 text-center text-gray-400 text-[10px]">
+        Haerang Maya Loyalty Engine &copy; 2026. Todos los derechos reservados.
+    </footer>
+
+    <script>
+        let clientData = {
+            name: "Fan del K-Food",
+            stamps: 1,
+            redeemedCodes: []
+        };
+
+        let activeCodes = {};
+
+        window.onload = function() {
+            renderGrid();
+        };
+
+        function renderGrid() {
+            const grid = document.getElementById('stampsGrid');
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = "h-16 rounded-2xl flex flex-col items-center justify-center relative transition-all duration-300 ";
+
+                if (i <= clientData.stamps) {
+                    if (i === 1) {
+                        cell.className += "bg-amber-400 text-amber-950 border-2 border-amber-500 shadow-sm stamp-animation";
+                        cell.innerHTML = `
+                            <span class="text-base">🎉</span>
+                            <span class="text-[8px] font-bold uppercase mt-0.5">Regalo</span>
+                        `;
+                    } else if (i === 9) {
+                        cell.className += "bg-amber-500 text-white border-2 border-amber-600 shadow-sm stamp-animation";
+                        cell.innerHTML = `
+                            <span class="text-base">🎁</span>
+                            <span class="text-[8px] font-bold uppercase mt-0.5">¡Premio!</span>
+                        `;
+                    } else {
+                        cell.className += "bg-rose-500 text-white border-2 border-rose-600 shadow-sm stamp-animation";
+                        cell.innerHTML = `
+                            <span class="text-base">🐻</span>
+                            <span class="text-[8px] font-bold uppercase mt-0.5">Sello ${i-1}</span>
+                        `;
+                    }
+                } else if (i === 9) {
+                    cell.className += "bg-amber-100 border-2 border-dashed border-amber-400 text-amber-800";
+                    cell.innerHTML = `
+                        <span class="text-base">🎁</span>
+                        <span class="text-[8px] font-bold uppercase mt-0.5">Premio</span>
+                    `;
+                } else {
+                    cell.className += "bg-white/80 border-2 border-dashed border-rose-200 text-rose-300 font-bold text-xs";
+                    cell.innerText = `Compra ${i-1}`;
+                }
+
+                grid.appendChild(cell);
+            }
+
+            document.getElementById('stampsCount').innerText = clientData.stamps;
+
+            const claimBtn = document.getElementById('claimBtn');
+            if (clientData.stamps >= 9) {
+                claimBtn.disabled = false;
+                claimBtn.className = "bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs px-3 py-2 rounded-xl shadow-md transition animate-pulse cursor-pointer";
+            } else {
+                claimBtn.disabled = true;
+                claimBtn.className = "bg-gray-300 text-gray-500 font-bold text-xs px-3 py-2 rounded-xl cursor-not-allowed transition";
+            }
+        }
+
+        function toggleRole() {
+            const clientView = document.getElementById('clientView');
+            const adminView = document.getElementById('adminView');
+            const toggleBtn = document.getElementById('toggleRoleBtn');
+
+            if (clientView.classList.contains('hidden')) {
+                clientView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+                toggleBtn.innerText = "⚙️ Modo Admin";
+            } else {
+                clientView.classList.add('hidden');
+                adminView.classList.remove('hidden');
+                toggleBtn.innerText = "📱 Ver Tarjeta";
+            }
+        }
+
+        function generateStampCode() {
+            const amount = parseFloat(document.getElementById('purchaseAmount').value) || 0;
+            if (amount < 35) {
+                alert("El monto mínimo para otorgar el sello es de Q35.00.");
+                return;
+            }
+
+            let earnedStamps = 1;
+            const randomId = Math.floor(1000 + Math.random() * 9000);
+            const code = `HM-${randomId}`;
+
+            activeCodes[code] = earnedStamps;
+
+            document.getElementById('generatedCodeArea').classList.remove('hidden');
+            document.getElementById('generatedCodeDisplay').innerText = code;
+            document.getElementById('stampsEarnedInfo').innerText = "✨ Válido por 1 Sello VIP (Compra Mínima Q35)";
+
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = "";
+            new QRCode(qrContainer, {
+                text: code,
+                width: 110,
+                height: 110,
+                colorDark : "#9f1239",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+
+        function redeemStampCode() {
+            const input = document.getElementById('stampCodeInput');
+            const code = input.value.trim().toUpperCase();
+
+            if (!code) {
+                showMsg("Por favor ingresa un código.", "text-red-500");
+                return;
+            }
+
+            if (clientData.redeemedCodes.includes(code)) {
+                showMsg("Este código ya fue utilizado anteriormente.", "text-red-500");
+                return;
+            }
+
+            if (activeCodes[code]) {
+                const earned = activeCodes[code];
+                clientData.stamps = Math.min(clientData.stamps + earned, 9);
+                clientData.redeemedCodes.push(code);
+                delete activeCodes[code];
+
+                renderGrid();
+                showMsg(`¡Éxito! Sumaste 1 sello a tu tarjeta. 🎉`, "text-emerald-600");
+                input.value = "";
+            } else {
+                showMsg("Código no válido o expirado.", "text-red-500");
+            }
+        }
+
+        function showMsg(text, colorClass) {
+            const msg = document.getElementById('redeemMessage');
+            msg.className = `text-[11px] font-bold mt-2 ${colorClass}`;
+            msg.innerText = text;
+            msg.classList.remove('hidden');
+        }
+
+        function claimReward() {
+            if (clientData.stamps >= 9) {
+                alert("🎉 ¡FELICIDADES! Presenta esta pantalla para reclamar tu Combo de Ramen Buldak + Bebida Coreana en Haerang Maya.");
+                clientData.stamps = 1;
+                renderGrid();
+            }
+        }
+
+        function resetClientCard() {
+            clientData.stamps = 1;
+            clientData.redeemedCodes = [];
+            renderGrid();
+            alert("Tarjeta reiniciada para pruebas (1/9 sellos).");
+        }
+    </script>
+</body>
+  </html>
+  
