@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Tarjeta VIP Haerang Maya</title>
+  <style>
+    :root {
+      --rosa-cerezo: #e6739f;
+      --verde-quetzal: #228b22;
+      --azul-hanbok: #2b3467;
+      --fondo-crema: #fff9f2;
+      --marron-texto: #4a3b32;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--fondo-crema);
+      color: var(--marron-texto);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .admin-card {
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(74, 59, 50, 0.08);
+      max-width: 450px;
+      width: 100%;
+      padding: 25px;
+      border: 2px solid #ced4da;
+    }
+
+    h1 {
+      color: var(--azul-hanbok);
+      font-size: 1.5rem;
+      margin-top: 0;
+      text-align: center;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      text-align: center;
+      color: #666;
+    }
+
+    .input-pass {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .btn-action {
+      display: block;
+      width: 100%;
+      background-color: var(--rosa-cerezo);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.2s;
+    }
+
+    .btn-action:hover {
+      background-color: #d65c8a;
+    }
+
+    .code-display {
+      margin-top: 25px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border: 2px dashed var(--verde-quetzal);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .code-display span {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: var(--azul-hanbok);
+      margin-top: 5px;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 0.85rem;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-card">
+    <h1>Panel de Administración VIP</h1>
+
+    <!-- Bloque de Login -->
+    <div id="loginSection">
+      <p>Ingresa la clave de acceso de Haerang Maya:</p>
+      <input type="password" id="passInput" class="input-pass" placeholder="Contraseña">
+      <button class="btn-action" onclick="checkPassword()">Ingresar</button>
+      <div id="loginError" class="error-msg"></div>
+    </div>
+
+    <!-- Bloque del Generador (Oculto al inicio) -->
+    <div id="panelSection" style="display: none;">
+      <p>Genera un código único de sello para tus clientes (compras mayores a Q35).</p>
+      <button class="btn-action" onclick="generateCode()">Generar Nuevo Código</button>
+
+      <div class="code-display" id="resultBox" style="display: none;">
+        <small>Código generado:</small>
+        <span id="generatedCode">HM-0000</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_PASS = "O.E.B.J1234";
+    const SECRET_KEY = 7439;
+
+    function checkPassword() {
+      const enteredPass = document.getElementById('passInput').value;
+      const errorDiv = document.getElementById('loginError');
+
+      if (enteredPass === ADMIN_PASS) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('panelSection').style.display = 'block';
+      } else {
+        errorDiv.innerText = 'Contraseña incorrecta.';
+      }
+    }
+
+    function generateCode() {
+      const randomSeed = Math.floor(1000 + Math.random() * 9000);
+      const hash = (randomSeed * SECRET_KEY) % 9000 + 1000;
+      const finalCode = `HM-${randomSeed}${hash}`;
+
+      document.getElementById('generatedCode').innerText = finalCode;
+      document.getElementById('resultBox').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
