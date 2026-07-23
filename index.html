@@ -6,11 +6,11 @@
   <title>Haerang Maya - Tarjeta VIP</title>
   <style>
     :root {
-      --rosa-cerezo: #E6739F;
-      --verde-quetzal: #228B22;
-      --azul-hanbok: #2B3A67;
-      --fondo-crema: #FFF9F2;
-      --marron-texto: #4A3B32;
+      --rosa-cerezo: #e6739f;
+      --verde-quetzal: #228b22;
+      --azul-hanbok: #2b3467;
+      --fondo-crema: #fff9f2;
+      --marron-texto: #4a3b32;
     }
 
     body {
@@ -24,197 +24,197 @@
     }
 
     .card {
-      background: #ffffff;
+      background-color: #ffffff;
       border-radius: 20px;
       box-shadow: 0 4px 15px rgba(74, 59, 50, 0.08);
-      width: 100%;
       max-width: 400px;
+      width: 100%;
       padding: 20px;
-      text-align: center;
-      border: 2px solid #fce8ee;
+      border: 2px solid #cfdee2;
     }
 
     .header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 15px;
     }
 
     .logo-title {
+      font-size: 1.3rem;
       font-weight: bold;
       color: var(--azul-hanbok);
-      font-size: 1.1em;
     }
 
     .vip-tag {
-      background: var(--rosa-cerezo);
+      background-color: var(--rosa-cerezo);
       color: white;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 12px;
-      font-size: 0.8em;
+      font-size: 0.8rem;
       font-weight: bold;
-    }
-
-    h2 {
-      color: var(--azul-hanbok);
-      margin-bottom: 5px;
     }
 
     .stamps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
       margin: 20px 0;
     }
 
     .stamp {
       aspect-ratio: 1;
-      border: 2px dashed #f5c6cb;
-      border-radius: 12px;
+      border: 2px dashed #ffcad4;
+      border-radius: 50%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 0.8em;
-      color: #aaa;
-      background: #fffdfd;
+      font-weight: bold;
+      color: #888;
+      font-size: 0.9rem;
+      background-color: #fff;
+      text-align: center;
     }
 
     .stamp.active {
-      border-style: solid;
-      border-color: var(--rosa-cerezo);
-      background: #fdeaf0;
+      border: 2px solid var(--verde-quetzal);
+      background-color: #e8f5e9;
+      color: var(--verde-quetzal);
+      font-size: 1.3rem;
+    }
+
+    .stamp.reward {
+      border: 2px dashed var(--rosa-cerezo);
       color: var(--rosa-cerezo);
       font-weight: bold;
     }
 
-    .prize-box {
-      background: #eef7ee;
-      border: 1px solid #c3e6c3;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      color: var(--verde-quetzal);
-    }
-
     .input-group {
-      margin-top: 20px;
+      margin-top: 15px;
+      display: flex;
+      gap: 8px;
     }
 
-    input {
-      width: calc(100% - 24px);
-      padding: 12px;
-      border: 1px solid #ccc;
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #ccc;
       border-radius: 8px;
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 1em;
+      font-size: 0.9rem;
       text-transform: uppercase;
     }
 
     button {
-      width: 100%;
-      background: var(--rosa-cerezo);
+      background-color: var(--azul-hanbok);
       color: white;
       border: none;
-      padding: 12px;
+      padding: 10px 15px;
       border-radius: 8px;
-      font-size: 1em;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
-    button:hover {
-      background: #d65c8a;
-    }
-
-    .rules {
-      text-align: left;
-      font-size: 0.85em;
-      color: #6c757d;
-      margin-top: 20px;
-      line-height: 1.5;
+    .msg {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="header">
-    <div class="logo-title">HAERANG MAYA 🐻🦜</div>
-    <div class="vip-tag">CLIENTE VIP</div>
+  <div class="card">
+    <div class="header">
+      <span class="logo-title">Haerang Maya</span>
+      <span class="vip-tag">Tarjeta VIP</span>
+    </div>
+
+    <p style="text-align: center; font-size: 0.9rem;">¡Primer sello GRATIS de bienvenida! Completa la tarjeta en compras mayores a Q35 y reclama tu regalo.</p>
+
+    <div class="stamps-grid" id="stampsGrid">
+      <div class="stamp">GRATIS</div>
+      <div class="stamp">2</div>
+      <div class="stamp">3</div>
+      <div class="stamp">4</div>
+      <div class="stamp">5</div>
+      <div class="stamp">6</div>
+      <div class="stamp">7</div>
+      <div class="stamp">8</div>
+      <div class="stamp reward">REGALO 🎁</div>
+    </div>
+
+    <div class="input-group">
+      <input type="text" id="codeInput" placeholder="Ej: HM-83921048">
+      <button onclick="addStamp()">Canjear</button>
+    </div>
+    <div class="msg" id="msg"></div>
   </div>
 
-  <h2>¡Hola, Fan del K-Food! 👋</h2>
-  <p style="font-size: 0.9em; color: #666;">🎁 ¡Te regalamos el sello #1 de Bienvenida! Junta 7 compras más para ganar tu premio.</p>
+  <script>
+    const SECRET_KEY = 7439;
+    // Inicia con 1 sello gratis por defecto
+    let currentStamps = parseInt(localStorage.getItem('hm_stamps') || '1');
 
-  <div class="stamps-grid" id="stampsGrid"></div>
-
-  <div class="prize-box">
-    <strong>🎁 Premio VIP Final:</strong><br>1 Ramen Buldak + 1 Bebida Coreana
-  </div>
-
-  <div class="input-group">
-    <h3 style="color: var(--azul-hanbok); margin-bottom: 5px;">¿Compraste en línea o presencial?</h3>
-    <p style="font-size: 0.8em; color: #666; margin-top: 0;">Ingresa el <strong>Código de Sello</strong> para sumarlo a tu tarjeta:</p>
-    <input type="text" id="codeInput" placeholder="EJ: HM-8291">
-    <button onclick="validateCode()">Validar Sello</button>
-  </div>
-
-  <div class="rules">
-    📌 <strong>Reglas de tu Tarjeta VIP:</strong>
-    <ul>
-      <li>El sello #1 es de Bienvenida Gratis 🎉</li>
-      <li>Acumulas 1 sello por cada compra de Q35 o más.</li>
-      <li>Al completar 7 compras (8 sellos + bienvenida), ¡desbloqueas tu premio!</li>
-    </ul>
-  </div>
-</div>
-
-<script>
-  const validCodes = [
-    "HM-1048","HM-3921","HM-7164","HM-2850","HM-9403","HM-5317","HM-8629","HM-4175","HM-6092","HM-1538",
-    "HM-7481","HM-2906","HM-8352","HM-4619","HM-9247","HM-3180","HM-6725","HM-1493","HM-5804","HM-8036",
-    "HM-2561","HM-9174","HM-4830","HM-6309","HM-1752","HM-8426","HM-3905","HM-7241","HM-5183","HM-6094",
-    "HM-9318","HM-2647","HM-8501","HM-4162","HM-7395","HM-1820","HM-5439","HM-8073","HM-3614","HM-9258",
-    "HM-4721","HM-6903","HM-1385","HM-8240","HM-5619","HM-3072","HM-9486","HM-2153","HM-7834","HM-6201"
-  ];
-
-  let currentStamps = parseInt(localStorage.getItem('userStamps')) || 1;
-
-  function renderStamps() {
-    const grid = document.getElementById('stampsGrid');
-    grid.innerHTML = '';
-    for (let i = 1; i <= 9; i++) {
-      const box = document.createElement('div');
-      box.className = 'stamp ' + (i <= currentStamps ? 'active' : '');
-      if (i === 1) box.innerText = '🎁 REGALO';
-      else if (i === 9) box.innerText = '🎁 PREMIO';
-      else box.innerText = 'Compra ' + (i - 1);
-      grid.appendChild(box);
+    function updateGrid() {
+      const stamps = document.querySelectorAll('.stamp');
+      stamps.forEach((stamp, index) => {
+        if (index < currentStamps) {
+          stamp.classList.add('active');
+          stamp.innerText = '🌸';
+        } else {
+          stamp.classList.remove('active');
+          if (index === 0) {
+            stamp.innerText = 'GRATIS';
+          } else if (index === 8) {
+            stamp.innerText = 'REGALO 🎁';
+          } else {
+            stamp.innerText = index + 1;
+          }
+        }
+      });
     }
-  }
 
-  function validateCode() {
-    const code = document.getElementById('codeInput').value.trim().toUpperCase();
-    if (validCodes.includes(code)) {
-      if (currentStamps < 9) {
-        currentStamps++;
-        localStorage.setItem('userStamps', currentStamps);
-        renderStamps();
-        alert('¡Sello agregado con éxito! 🎉');
-        document.getElementById('codeInput').value = '';
-      } else {
-        alert('¡Felicidades! Ya completaste tu tarjeta VIP.');
+    function addStamp() {
+      const input = document.getElementById('codeInput').value.trim().toUpperCase();
+      const msg = document.getElementById('msg');
+
+      if (!input.startsWith('HM-') || input.length !== 11) {
+        msg.style.color = 'red';
+        msg.innerText = 'Código inválido.';
+        return;
       }
-    } else {
-      alert('Código inválido o ya utilizado.');
-    }
-  }
 
-  renderStamps();
-</script>
+      const rawCode = input.replace('HM-', '');
+      const randomSeed = parseInt(rawCode.substring(0, 4));
+      const expectedHash = parseInt(rawCode.substring(4));
+
+      const calculatedHash = (randomSeed * SECRET_KEY) % 9000 + 1000;
+
+      if (expectedHash === calculatedHash) {
+        if (currentStamps < 9) {
+          currentStamps++;
+          localStorage.setItem('hm_stamps', currentStamps);
+          updateGrid();
+          msg.style.color = 'green';
+          if (currentStamps === 9) {
+            msg.innerText = '🎉 ¡Felicidades! Has completado tu tarjeta VIP. Reclama tu regalo.';
+          } else {
+            msg.innerText = '¡Sello agregado con éxito!';
+          }
+          document.getElementById('codeInput').value = '';
+        } else {
+          msg.style.color = 'orange';
+          msg.innerText = '¡Ya reclamaste todos los sellos de esta tarjeta!';
+        }
+      } else {
+        msg.style.color = 'red';
+        msg.innerText = 'Código no válido o alterado.';
+      }
+    }
+
+    updateGrid();
+  </script>
 
 </body>
 </html>
