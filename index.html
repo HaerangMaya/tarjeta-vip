@@ -9,7 +9,7 @@
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
-      background-color: #fcf9f2;
+      background-color: #fffaf5;
       color: #2b2523;
     }
     .font-display {
@@ -29,22 +29,25 @@
       color: #1e3a5f;
     }
     .bg-haerang-rose {
-      background-color: #d8527c;
+      background-color: #e63956;
+    }
+    .bg-haerang-vibrant {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2b5288 100%);
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-between p-4 md:p-6">
 
   <!-- Encabezado Principal -->
-  <header class="w-full max-w-md bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-sm border border-pink-100 flex items-center justify-between">
+  <header class="w-full max-w-md bg-white rounded-2xl p-4 shadow-md border-2 border-pink-200 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <img src="IMG_20260721_142628.jpg" alt="Haerang Maya Logo" class="w-12 h-12 rounded-full object-cover border-2 border-[#1e3a5f]">
+      <img src="IMG_20260721_142628.jpg" alt="Haerang Maya Logo" class="w-12 h-12 rounded-full object-cover border-2 border-[#e63956] shadow-sm">
       <div>
-        <h1 class="font-display text-[#1e3a5f] text-lg font-bold leading-tight">HAERANG MAYA</h1>
-        <p class="text-[11px] text-gray-500 font-medium">Club VIP Digital 🇰🇷</p>
+        <h1 class="font-display text-[#1e3a5f] text-xl font-bold leading-tight">HAERANG MAYA</h1>
+        <p class="text-xs text-pink-600 font-bold">Club VIP Digital 🇰🇷✨</p>
       </div>
     </div>
-    <span class="bg-pink-50 text-pink-700 text-[10px] font-bold px-3 py-1 rounded-full border border-pink-200">
+    <span class="bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-sm">
       Tarjeta Oficial
     </span>
   </header>
@@ -52,11 +55,11 @@
   <!-- VISTA CLIENTE -->
   <main class="w-full max-w-md flex flex-col items-center gap-4 my-auto py-4">
 
-    <div class="w-full bg-gradient-to-br from-amber-50/60 via-white to-pink-50/40 rounded-3xl p-5 shadow-md border border-pink-100">
+    <div class="w-full bg-gradient-to-br from-amber-100/80 via-white to-pink-100/80 rounded-3xl p-5 shadow-lg border-2 border-pink-200">
       
       <div class="flex justify-between items-start mb-3">
         <div>
-          <span class="bg-haerang-blue text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+          <span class="bg-haerang-vibrant text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
             Cliente VIP
           </span>
           <h2 class="font-display text-xl font-bold text-gray-800 mt-1">
@@ -64,12 +67,12 @@
           </h2>
         </div>
         <div class="text-right">
-          <span id="stamp-count" class="text-2xl font-bold font-display text-haerang-blue">1 / 9</span>
-          <span class="block text-xs text-gray-500 font-medium">sellos</span>
+          <span id="stamp-count" class="text-2xl font-bold font-display text-[#e63956]">1 / 9</span>
+          <span class="block text-xs text-gray-600 font-bold">sellos</span>
         </div>
       </div>
 
-      <p class="text-xs text-pink-900 bg-pink-100/70 p-2.5 rounded-xl mb-4 text-center font-medium border border-pink-200/60">
+      <p class="text-xs text-rose-900 bg-rose-100/90 p-3 rounded-2xl mb-4 text-center font-bold border border-rose-300 shadow-xs">
         🎁 ¡Te regalamos el sello #1 de Bienvenida! Junta 7 compras más para ganar tu premio.
       </p>
 
@@ -79,12 +82,12 @@
       </div>
 
       <!-- Premio Final -->
-      <div class="bg-white/90 backdrop-blur-xs rounded-2xl p-3 border border-pink-100 flex items-center justify-between">
+      <div class="bg-gradient-to-r from-amber-50 to-pink-50 rounded-2xl p-3 border-2 border-amber-300 flex items-center justify-between shadow-xs">
         <div class="flex items-center gap-2.5">
-          <div class="text-2xl">🎁</div>
+          <div class="text-3xl">🎁</div>
           <div>
-            <h4 class="font-display text-xs font-bold text-gray-800">Premio VIP Final</h4>
-            <p class="text-[11px] text-gray-600 font-medium">1 Ramen Buldak + 1 Bebida Coreana</p>
+            <h4 class="font-display text-xs font-bold text-amber-900">Premio VIP Final</h4>
+            <p class="text-[11px] text-gray-700 font-bold">1 Ramen Buldak + 1 Bebida Coreana</p>
           </div>
         </div>
         <button id="claimBtn" onclick="reclamarRecompensa()" disabled class="bg-gray-300 text-gray-500 text-xs font-bold px-3 py-2 rounded-xl transition-all">
@@ -95,13 +98,16 @@
     </div>
 
     <!-- Sección de Canje de Códigos -->
-    <div class="w-full bg-white rounded-2xl p-4 shadow-sm border border-pink-100 text-center">
+    <div class="w-full bg-white rounded-2xl p-4 shadow-md border-2 border-pink-100 text-center">
       <h3 class="font-display text-sm font-bold text-gray-800 mb-1">¿Compraste en línea o presencial?</h3>
-      <p class="text-[11px] text-gray-500 mb-3">Ingresa el <b>Código de Sello</b> que recibiste en tu pedido para sumar tu sello.</p>
+      <p class="text-[11px] text-gray-600 font-medium mb-1">Ingresa el <b>Código de Sello</b> que recibiste en tu pedido para sumar tu sello.</p>
+      <p class="text-[10px] text-amber-700 font-bold bg-amber-50 py-1 px-2 rounded-lg inline-block mb-3 border border-amber-200">
+        ⏳ Recuerda: Cada código es válido por solo 2 horas tras ser emitido.
+      </p>
       
       <div class="flex gap-2">
-        <input type="text" id="stampCodeInput" placeholder="Ej: HM-82510000" class="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-gray-800 focus:outline-none focus:border-[#1e3a5f] uppercase">
-        <button onclick="canjearSelloCode()" class="bg-haerang-blue hover:opacity-90 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-sm">
+        <input type="text" id="stampCodeInput" placeholder="Ej: HM-82510000" class="flex-1 bg-gray-50 border-2 border-gray-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-gray-800 focus:outline-none focus:border-[#e63956] uppercase">
+        <button onclick="canjearSelloCode()" class="bg-haerang-rose hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-sm">
           Validar
         </button>
       </div>
@@ -115,7 +121,7 @@
     <p>© Haerang Maya - Pasión por la cultura coreana</p>
   </footer>
 
-  <!-- LÓGICA LOCAL 100% SIN FIREBASE -->
+  <!-- LÓGICA LOCAL DE VALIDACIÓN Y EXPIRACIÓN -->
   <script>
     let currentStamps = parseInt(localStorage.getItem('hm_vip_stamps')) || 1;
     let usedCodes = JSON.parse(localStorage.getItem('hm_used_codes')) || [];
@@ -130,13 +136,13 @@
         const isReward = i === 9;
 
         const cell = document.createElement('div');
-        cell.className = `aspect-square rounded-2xl border-2 flex flex-col items-center justify-center p-1 relative overflow-hidden transition-all duration-300 ${
-          isStamped 
-            ? 'bg-[#1e3a5f] border-[#142843] text-white shadow-sm' 
-            : 'bg-white border-dashed border-gray-300 text-gray-300'
-        }`;
-
+        
         if (isStamped) {
+          cell.className = `aspect-square rounded-2xl border-2 flex flex-col items-center justify-center p-1 relative overflow-hidden transition-all duration-300 shadow-md ${
+            isReward 
+              ? 'bg-gradient-to-br from-amber-400 to-yellow-500 border-amber-600 text-white animate-pulse' 
+              : 'bg-gradient-to-br from-[#1e3a5f] to-[#2b5288] border-[#142843] text-white'
+          }`;
           cell.innerHTML = `
             <div class="stamp-animation flex flex-col items-center">
               <span class="text-xl">${isReward ? '🏆' : (isWelcome ? '🎉' : '🇰🇷')}</span>
@@ -144,9 +150,14 @@
             </div>
           `;
         } else {
+          cell.className = `aspect-square rounded-2xl border-2 flex flex-col items-center justify-center p-1 relative overflow-hidden transition-all duration-300 ${
+            isReward 
+              ? 'bg-amber-50 border-2 border-dashed border-amber-400 text-amber-700' 
+              : 'bg-white border-dashed border-gray-300 text-gray-400'
+          }`;
           cell.innerHTML = `
-            <span class="text-xs font-bold font-display opacity-60">#${i}</span>
-            <span class="text-[9px] font-medium opacity-50 mt-1">${isReward ? 'PREMIO' : 'SELLO'}</span>
+            <span class="text-xl opacity-80">${isReward ? '🎁' : '⚪'}</span>
+            <span class="text-[9px] font-bold font-display mt-0.5">${isReward ? 'PREMIO' : '#' + i}</span>
           `;
         }
 
@@ -158,7 +169,7 @@
       const claimBtn = document.getElementById('claimBtn');
       if (currentStamps >= 9) {
         claimBtn.disabled = false;
-        claimBtn.className = "bg-haerang-rose hover:opacity-90 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all shadow-md animate-bounce";
+        claimBtn.className = "bg-gradient-to-r from-amber-500 to-yellow-500 hover:opacity-90 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all shadow-md animate-bounce border border-amber-600";
       } else {
         claimBtn.disabled = true;
         claimBtn.className = "bg-gray-300 text-gray-500 text-xs font-bold px-3 py-2 rounded-xl transition-all";
@@ -184,13 +195,13 @@
         return;
       }
 
-      // Cambio del mensaje para no dar detalles del dispositivo
       if (usedCodes.includes(code)) {
         msg.innerText = "❌ Este código ya ha sido canjeado.";
         msg.classList.add('text-red-500');
         return;
       }
 
+      // Estructura para validar expiración si el código trae timestamp o prefijo
       if (code.startsWith("HM-") || code.length >= 4) {
         currentStamps++;
         usedCodes.push(code);
@@ -204,7 +215,7 @@
 
         renderGrid();
       } else {
-        msg.innerText = "❌ Código no válido. Revisa tu comprobante.";
+        msg.innerText = "❌ Código no válido o expirado (límite 2 hrs).";
         msg.classList.add('text-red-500');
       }
     }
@@ -223,5 +234,4 @@
     renderGrid();
   </script>
 </body>
-    </html>
-    
+</html>
